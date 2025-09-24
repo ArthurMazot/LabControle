@@ -6,24 +6,24 @@ vetKp = [0.5 1 2 10];
 
 for i = 1:4
     Ti = vetTi(i);
-    figure(i)
-    hold on
+    figure(Name=strcat('Ti = ', num2str(Ti)), NumberTitle="off"); %strcat concatena strings
     for j = 1:4
         Kp = vetKp(j);
         dados = sim('Tf.slx');
-        subplot(2,2,j)
+        subplot(2,2,j) %col, lin, pos
         plot(dados.tout, dados.out.Data)
+        title(strcat('Kp = ', num2str(Kp))) %titulo pra cada subplot
     end
 end
 
 for i = 1:4
     Kp = vetKp(i);
-    figure(4+i)
-    hold on
+    figure(Name=strcat('Kp = ', num2str(Kp)), NumberTitle="off"); %strcat concatena strings
     for j = 1:4
         Ti = vetTi(j);
         dados = sim('Tf.slx');
-        subplot(2,2,j)
+        subplot(2,2,j) %col, lin, pos
         plot(dados.tout, dados.out.Data)
+        title(strcat('Ti = ', num2str(Ti))) %titulo pra cada subplot
     end
 end
