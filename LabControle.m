@@ -27,3 +27,6 @@ for i = 1:4
         title(strcat('Ti = ', num2str(Ti))) %titulo pra cada subplot
     end
 end
+
+%Mudar o Kp muda o ganho e a velocidade do sistema, maior o Kp maior a velocidade
+%Mudar o Ti muda o ganho e o erro do sistema, maior o Ti menor o erro
