@@ -19,11 +19,11 @@ for i = 1:4
         title(strcat('Kp = ', num2str(Kp))) %titulo pra cada subplot
     end
     %Descomentar para salvar os graficos
-    if i == 1
-        saveas(fig,strcat('grafico_Ti_inf.jpg'));
-    else
-        saveas(fig,strcat('grafico_Ti_', num2str(Ti), '.jpg'));
-    end
+    %if i == 1
+    %    saveas(fig,strcat('grafico_Ti_inf.jpg'));
+    %else
+    %    saveas(fig,strcat('grafico_Ti_', num2str(Ti), '.jpg'));
+    %end
 end
 
 for i = 1:4
@@ -41,11 +41,12 @@ for i = 1:4
         end
     end
     %Descomentar para salvar os graficos
-    saveas(fig, strcat('grafico_Kp_', num2str(Kp), '.jpg'));
+    %saveas(fig, strcat('grafico_Kp_', num2str(Kp), '.jpg'));
 end
 
 %Mudar o Kp muda o ganho e a velocidade do sistema, maior o Kp maior a velocidade
 %Um Kp grande pode afetar a estabilidade do sistema
 
 %Mudar o Ti muda o ganho e o erro do sistema, maior o Ti menor o erro
+
 %Um Ti pequeno pode afetar a estabilidade do sistema
