@@ -16,7 +16,15 @@ for i = 1:4
         dados = sim('Tf.slx');
         subplot(2,2,j) %coluna, linha, posição
         plot(dados.tout, dados.out.Data)
+        hold on
+        plot(dados.tout, dados.out1.Data) % Degrau
+        hold on
+        plot(dados.tout, dados.out2.Data) % ???
+        hold on
+        plot(dados.tout, dados.out3.Data) % ???
         title(strcat('Kp = ', num2str(Kp))) %titulo pra cada subplot
+        legend('out', 'Degrau', '???', '???')
+
     end
     %Descomentar para salvar os graficos
     %if i == 1
@@ -34,6 +42,13 @@ for i = 1:4
         dados = sim('Tf.slx');
         subplot(2,2,j) %coluna, linha, posição
         plot(dados.tout, dados.out.Data)
+        hold on
+        plot(dados.tout, dados.out1.Data) % Degrau
+        hold on
+        plot(dados.tout, dados.out2.Data) % ???
+        hold on
+        plot(dados.tout, dados.out3.Data) % ???
+        legend('out', 'Degrau', '???', '???')
         if j == 1 %Se o Ti == 1/eps
             title('Ti = inf');
         else
