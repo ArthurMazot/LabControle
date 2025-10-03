@@ -14,13 +14,11 @@ for i = 1:4
         fig = figure('Name', strcat('grafico_Ti_', num2str(Ti)), 'NumberTitle', 'off');
     end
 
-    subplot(1,1,1); % ← fora do loop!
     hold on
-
     for j = 1:4
         Kp = vetKp(j);
         dados = sim('Tf.slx');
-        plot(dados.tout, dados.out.Data, 'DisplayName', ['Kp = ', num2str(Kp)]);
+        plot(dados.tout, dados.out.Data, 'DisplayName', ['Kp = ', num2str(Kp)], 'LineWidth', 2);
     end
 
     if i == 1
@@ -31,21 +29,21 @@ for i = 1:4
 
     legend show
     if i == 4 
-    xlim([0 10])
-    ylim([0 5])
+        ylim([-1 5])
     else 
-    xlim([0 10])
-    ylim([0 2])
+        xlim([0.5 4])
+        ylim([-0.5 2])
     end
+
     grid on
     hold off
 
     % Descomentar para salvar os graficos
-    % if i == 1
-    %     saveas(fig, 'grafico_Ti_inf.jpg');
-    % else
-    %     saveas(fig, strcat('grafico_Ti_', num2str(Ti), '.jpg'));
-    % end
+    if i == 1
+        saveas(fig, 'grafico_Ti_inf.png');
+    else
+        saveas(fig, strcat('grafico_Ti_', num2str(Ti), '.png'));
+    end
 end
 
 for i = 1:4
@@ -53,9 +51,7 @@ for i = 1:4
     
     fig = figure('Name', strcat('grafico_Kp_', num2str(Kp)), 'NumberTitle', 'off');
 
-    subplot(1,1,1);  % apenas um gráfico por figura
     hold on
-
     for j = 1:4
         Ti = vetTi(j);
         dados = sim('Tf.slx');
@@ -68,30 +64,28 @@ for i = 1:4
         end
 
         % Plotar apenas a saída principal
-        plot(dados.tout, dados.out.Data, 'DisplayName', label)
+        plot(dados.tout, dados.out.Data, 'DisplayName', label, 'LineWidth', 2)
     end
 
     title(['Kp = ', num2str(Kp)]);
+
     legend show
     if i == 1 || i == 2
-    xlim([0 10])
-    ylim([0 2])
-    end 
-
-    if i == 3 || i == 4
-    xlim([0 10])
-    ylim([0 4])
+        ylim([-0.5 1.5])
+    else
+        xlim([0.5 4])
+        ylim([-1 4])
     end 
 
     grid on
     hold off
 
-    % Descomentar para salvar os graficos
-    % saveas(fig, strcat('grafico_Kp_', num2str(Kp), '.jpg'));
+    %Descomentar para salvar os graficos
+    saveas(fig, strcat('grafico_Kp_', num2str(Kp), '.png'));
 end
+
 %Mudar o Kp muda o ganho e a velocidade do sistema, maior o Kp maior a velocidade
 %Um Kp grande pode afetar a estabilidade do sistema
 
 %Mudar o Ti muda o ganho e o erro do sistema, maior o Ti menor o erro
-
 %Um Ti pequeno pode afetar a estabilidade do sistema
