@@ -6,59 +6,89 @@ vetKp = [0.5 1 2 10];
 
 for i = 1:4
     Ti = vetTi(i);
-    if i == 1 %Se o Ti == 1/eps
-        fig = figure(Name='grafico_Ti_inf', NumberTitle="off");
+    
+    % Criar a figura
+    if i == 1
+        fig = figure('Name', 'grafico_Ti_inf', 'NumberTitle', 'off');
     else
-        fig = figure(Name=strcat('grafico_Ti_', num2str(Ti)), NumberTitle="off"); %strcat concatena strings
+        fig = figure('Name', strcat('grafico_Ti_', num2str(Ti)), 'NumberTitle', 'off');
     end
+
+    subplot(1,1,1); % ← fora do loop!
+    hold on
+
     for j = 1:4
         Kp = vetKp(j);
         dados = sim('Tf.slx');
-        subplot(2,2,j) %coluna, linha, posição
-        plot(dados.tout, dados.out.Data)
-        hold on
-        plot(dados.tout, dados.out1.Data) % Degrau
-        hold on
-        plot(dados.tout, dados.out2.Data) % ???
-        hold on
-        plot(dados.tout, dados.out3.Data) % ???
-        title(strcat('Kp = ', num2str(Kp))) %titulo pra cada subplot
-        legend('out', 'Degrau', '???', '???')
-
+        plot(dados.tout, dados.out.Data, 'DisplayName', ['Kp = ', num2str(Kp)]);
     end
-    %Descomentar para salvar os graficos
-    %if i == 1
-    %    saveas(fig,strcat('grafico_Ti_inf.jpg'));
-    %else
-    %    saveas(fig,strcat('grafico_Ti_', num2str(Ti), '.jpg'));
-    %end
+
+    if i == 1
+        title('Ti = inf');
+    else
+        title(['Ti = ', num2str(Ti)]);
+    end
+
+    legend show
+    if i == 4 
+    xlim([0 10])
+    ylim([0 5])
+    else 
+    xlim([0 10])
+    ylim([0 2])
+    end
+    grid on
+    hold off
+
+    % Descomentar para salvar os graficos
+    % if i == 1
+    %     saveas(fig, 'grafico_Ti_inf.jpg');
+    % else
+    %     saveas(fig, strcat('grafico_Ti_', num2str(Ti), '.jpg'));
+    % end
 end
 
 for i = 1:4
     Kp = vetKp(i);
-    fig = figure(Name=strcat('grafico_Kp_', num2str(Kp)), NumberTitle="off"); %strcat concatena strings
+    
+    fig = figure('Name', strcat('grafico_Kp_', num2str(Kp)), 'NumberTitle', 'off');
+
+    subplot(1,1,1);  % apenas um gráfico por figura
+    hold on
+
     for j = 1:4
         Ti = vetTi(j);
         dados = sim('Tf.slx');
-        subplot(2,2,j) %coluna, linha, posição
-        plot(dados.tout, dados.out.Data)
-        hold on
-        plot(dados.tout, dados.out1.Data) % Degrau
-        hold on
-        plot(dados.tout, dados.out2.Data) % ???
-        hold on
-        plot(dados.tout, dados.out3.Data) % ???
-        legend('out', 'Degrau', '???', '???')
-        if j == 1 %Se o Ti == 1/eps
-            title('Ti = inf');
-        else
-            title(strcat('Ti = ', num2str(Ti))); %titulo pra cada subplot
-        end
-    end
-    %Descomentar para salvar os graficos
-    %saveas(fig, strcat('grafico_Kp_', num2str(Kp), '.jpg'));
-end
 
+        % Definir nome da curva conforme Ti
+        if j == 1
+            label = 'Ti = inf';
+        else
+            label = ['Ti = ', num2str(Ti)];
+        end
+
+        % Plotar apenas a saída principal
+        plot(dados.tout, dados.out.Data, 'DisplayName', label)
+    end
+
+    title(['Kp = ', num2str(Kp)]);
+    legend show
+    if i == 1 || i == 2
+    xlim([0 10])
+    ylim([0 2])
+    end 
+
+    if i == 3 || i == 4
+    xlim([0 10])
+    ylim([0 4])
+    end 
+
+    grid on
+    hold off
+
+    % Descomentar para salvar os graficos
+    % saveas(fig, strcat('grafico_Kp_', num2str(Kp), '.jpg'));
+end
 %Mudar o Kp muda o ganho e a velocidade do sistema, maior o Kp maior a velocidade
 %Um Kp grande pode afetar a estabilidade do sistema
 
